@@ -26,7 +26,7 @@ balanced (Leaf _) = True
 balanced (Branch x y) = abs (count x - count y) <= 1 && balanced x && balanced y
     where
         count (Leaf _) = 1
-        count (Branch a b) = max (count a) (count b)
+        count (Branch a b) = count a + count b
 
 --4
 perfect :: [Integer]
