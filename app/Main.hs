@@ -26,7 +26,7 @@ balanced (Leaf _) = True
 balanced (Branch x y) = abs (count x - count y) <= 1 && balanced x && balanced y
     where
         count (Leaf _) = 1
-        count (Branch a b) = count a + count b
+        count (Branch a b) = max (count a) (count b)
 
 --4
 perfect :: [Integer]
@@ -47,9 +47,9 @@ myFilter f (a:xs)
             apply (Or f1 f2) a = apply f1 a || apply f2 a
             apply (Neg f) a = not (apply f a)
 
---6 cia klaida su (foldl f3 "") nes nzn kaip del (Char -> Output)
+--6 no idea really
 data Input
 data Output
 
-process :: (Input -> [Integer]) -> Integer -> (Integer -> Char) -> (Char -> Output) -> Input -> Output
-process f1 bound f2 f3 = foldl f3 "" . filter isLower . map f2 . takeWhile (> bound) . f1
+process :: (Input -> [Integer]) -> Integer -> (Integer -> Char) -> ([Char] -> Output) -> Input -> Output
+process f1 bound f2 f3 = f3 . filter isLower . map f2 . takeWhile (> bound) . f1
